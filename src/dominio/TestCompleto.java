@@ -28,7 +28,7 @@ class TestCompleto {
 			
 			//Datos: Celine M. C. Dion	30/03/68 (54 años)-Femenino
 			GregorianCalendar f2 = new GregorianCalendar();
-			f2.set(1968, 2, 30);
+			f2.set(1968, 02, 30);
 			Artista a2 = new Artista ("   Celine   m.    C.  DION    ",f2,Sexo.Femenino);
 			
 			assertEquals("Celine M. C. Dion", a2.getNombre());
@@ -218,7 +218,7 @@ class TestCompleto {
 			assertEquals("No se permiten artistas menores (15)", e.getMessage());
 		}
 	}
-	
+
 	@Test
 	@Order(7)
 	@DisplayName("07 Buscar Artistas Orden Sexo, Edad, Nombre")
@@ -232,13 +232,13 @@ class TestCompleto {
 		GestorArtista ga = GestorArtista.getInstancia();
 		ga.blanquearArtistas();
 		ga=CargarArtistasParaTest7y8(ga);
-		
+
 		ArrayList<Artista> aux = ga.getArtistas();
-		
-		assertEquals(5, aux.size());	
-		assertEquals("Rocio",aux.get(0).getNombre());		
+
+		assertEquals(5, aux.size());
+		assertEquals("Rocio",aux.get(0).getNombre());
 		assertEquals("Julieta",aux.get(1).getNombre());
-		assertEquals("Luis Paez",aux.get(2).getNombre());		
+		assertEquals("Luis Paez",aux.get(2).getNombre());
 		assertEquals("Luis Abel",aux.get(3).getNombre());
 		assertEquals("Albaro Miguel",aux.get(4).getNombre());
 	}
@@ -246,30 +246,30 @@ class TestCompleto {
 	/**
 	 * Este no es un test.
 	 * Es un método complementario necesario para cargar los artistas para el test 7 y 8.
-	 * 
+	 *
 	 */
 	private GestorArtista CargarArtistasParaTest7y8(GestorArtista ga) {
 		try {
 			GregorianCalendar f1 = new GregorianCalendar();
 			f1.set(1990, 8, 23);
 			Artista a1 = new Artista ("luis Paez",f1,Sexo.Masculino);
-			
+
 			GregorianCalendar f2 = new GregorianCalendar();
 			f2.set(1990, 8, 21);
 			Artista a2 = new Artista ("luis abel",f2,Sexo.Masculino);
-			
+
 			GregorianCalendar f3 = new GregorianCalendar();
 			f3.set(1988, 7, 16);
 			Artista a3 = new Artista ("Rocio ",f3,Sexo.Femenino);
-			
+
 			GregorianCalendar f4 = new GregorianCalendar();
 			f4.set(1987, 7, 16);
 			Artista a4 = new Artista ("Julieta",f4,Sexo.Femenino);
-			
+
 			GregorianCalendar f5 = new GregorianCalendar();
 			f5.set(1990, 2, 21);
 			Artista a5 = new Artista ("Albaro miguel",f5,Sexo.Masculino);
-			
+
 			ga.addArtista(a1);
 			ga.addArtista(a2);
 			ga.addArtista(a3);
@@ -281,88 +281,88 @@ class TestCompleto {
 		return ga;
 	}
 
-	@Test
-	@Order(8)
-	@DisplayName("08 Primer Reporte: promedio de edad")
-	void testGestorArtistaPromedioEdad() {
-//		Datos:
-//		Luis Paez		23/09/90 (31 años)-Masculino
-//		Luis Abel		21/09/90 (31 años)-Masculino
-//		Rocio			16/08/88 (33 años)-Femenino
-//		Julieta			16/08/87 (34 años)-Femenino
-//		Albaro Miguel	21/03/90 (32 años)-Masculino
-		GestorArtista ga = GestorArtista.getInstancia();
-		ga.blanquearArtistas();
-		
-		assertEquals("No hay artistas.", ga.getPromedioEdadArtistas());
-		
-		ga=CargarArtistasParaTest7y8(ga);
-		
-		assertEquals("Hay 5 artistas con un promedio de 32 años.", ga.getPromedioEdadArtistas());	
-	}
-	
-	@Test
-	@Order(9)
-	@DisplayName("09 Segundo Reporte: promedio de edad por sexo")
-	void testGestorArtistaPromedioEdadxSexo() {
-		
-		GestorArtista ga = GestorArtista.getInstancia();
-		ga.blanquearArtistas();
-		
-		assertEquals("No hay artistas masculinos.", ga.getPromedioEdadArtistas(Sexo.Masculino));
-		assertEquals("No hay artistas femeninos.", ga.getPromedioEdadArtistas(Sexo.Femenino));
-		
-		try {
-//			Datos: Luis Paez	23/04/90 (32 años)-Masculino
-			GregorianCalendar f1 = new GregorianCalendar();
-			f1.set(1990, 3, 23);
-			Artista a1 = new Artista ("luis Paez",f1,Sexo.Masculino);
-			
-			ga.addArtista(a1);
-		}catch(ExceptionArtista e) {
-			fail("Esta linea no deberia correrse");
-		}
-		
-		assertEquals("Hay 1 artistas masculinos con un promedio de 32 años.", ga.getPromedioEdadArtistas(Sexo.Masculino));
-		assertEquals("No hay artistas femeninos.", ga.getPromedioEdadArtistas(Sexo.Femenino));
-		
-		try {
-//			Datos: Luis Abel	21/05/80 (42 años)-Masculino
-			GregorianCalendar f2 = new GregorianCalendar();
-			f2.set(1980, 4, 21);
-			Artista a2 = new Artista ("luis abel",f2,Sexo.Masculino);
-			
-			ga.addArtista(a2);
-		}catch(ExceptionArtista e) {
-			fail("Esta linea no deberia correrse");
-		}
-		
-		assertEquals("Hay 2 artistas masculinos con un promedio de 37 años.", ga.getPromedioEdadArtistas(Sexo.Masculino));
-		assertEquals("No hay artistas femeninos.", ga.getPromedioEdadArtistas(Sexo.Femenino));
-	}
-	
-	@Test
-	@Order(10)
-	@DisplayName("10 Nuevo Atributo Fecha de Muerte")
-	void testFechaMuerte() {
-		Artista a1=null;
-		try {
-//			Datos: Luis Paez	23/04/90 (30 años)-Masculino
-			GregorianCalendar f1 = new GregorianCalendar();
-			f1.set(1990, 3, 23);
-			a1 = new Artista ("luis Paez",f1,Sexo.Masculino);
-		}catch(ExceptionArtista e) {
-			fail("Esta linea no deberia correrse");
-		}
-		
-		assertNull(a1.getFechaMuerte());
-		assertEquals("Still Alive!", a1.getFechaMuerteCorta());
-		
-		GregorianCalendar f2 = new GregorianCalendar();
-		f2.set(2020, 7, 28);
-		a1.setFechaMuerte(f2);
-		
-		assertEquals("28/08/20", a1.getFechaMuerteCorta());
-		
-	}
+//	@Test
+//	@Order(8)
+//	@DisplayName("08 Primer Reporte: promedio de edad")
+//	void testGestorArtistaPromedioEdad() {
+////		Datos:
+////		Luis Paez		23/09/90 (31 años)-Masculino
+////		Luis Abel		21/09/90 (31 años)-Masculino
+////		Rocio			16/08/88 (33 años)-Femenino
+////		Julieta			16/08/87 (34 años)-Femenino
+////		Albaro Miguel	21/03/90 (32 años)-Masculino
+//		GestorArtista ga = GestorArtista.getInstancia();
+//		ga.blanquearArtistas();
+//
+//		assertEquals("No hay artistas.", ga.getPromedioEdadArtistas());
+//
+//		ga=CargarArtistasParaTest7y8(ga);
+//
+//		assertEquals("Hay 5 artistas con un promedio de 32 años.", ga.getPromedioEdadArtistas());
+//	}
+//
+//	@Test
+//	@Order(9)
+//	@DisplayName("09 Segundo Reporte: promedio de edad por sexo")
+//	void testGestorArtistaPromedioEdadxSexo() {
+//
+//		GestorArtista ga = GestorArtista.getInstancia();
+//		ga.blanquearArtistas();
+//
+//		assertEquals("No hay artistas masculinos.", ga.getPromedioEdadArtistas(Sexo.Masculino));
+//		assertEquals("No hay artistas femeninos.", ga.getPromedioEdadArtistas(Sexo.Femenino));
+//
+//		try {
+////			Datos: Luis Paez	23/04/90 (32 años)-Masculino
+//			GregorianCalendar f1 = new GregorianCalendar();
+//			f1.set(1990, 3, 23);
+//			Artista a1 = new Artista ("luis Paez",f1,Sexo.Masculino);
+//
+//			ga.addArtista(a1);
+//		}catch(ExceptionArtista e) {
+//			fail("Esta linea no deberia correrse");
+//		}
+//
+//		assertEquals("Hay 1 artistas masculinos con un promedio de 32 años.", ga.getPromedioEdadArtistas(Sexo.Masculino));
+//		assertEquals("No hay artistas femeninos.", ga.getPromedioEdadArtistas(Sexo.Femenino));
+//
+//		try {
+////			Datos: Luis Abel	21/05/80 (42 años)-Masculino
+//			GregorianCalendar f2 = new GregorianCalendar();
+//			f2.set(1980, 4, 21);
+//			Artista a2 = new Artista ("luis abel",f2,Sexo.Masculino);
+//
+//			ga.addArtista(a2);
+//		}catch(ExceptionArtista e) {
+//			fail("Esta linea no deberia correrse");
+//		}
+//
+//		assertEquals("Hay 2 artistas masculinos con un promedio de 37 años.", ga.getPromedioEdadArtistas(Sexo.Masculino));
+//		assertEquals("No hay artistas femeninos.", ga.getPromedioEdadArtistas(Sexo.Femenino));
+//	}
+//
+//	@Test
+//	@Order(10)
+//	@DisplayName("10 Nuevo Atributo Fecha de Muerte")
+//	void testFechaMuerte() {
+//		Artista a1=null;
+//		try {
+////			Datos: Luis Paez	23/04/90 (30 años)-Masculino
+//			GregorianCalendar f1 = new GregorianCalendar();
+//			f1.set(1990, 3, 23);
+//			a1 = new Artista ("luis Paez",f1,Sexo.Masculino);
+//		}catch(ExceptionArtista e) {
+//			fail("Esta linea no deberia correrse");
+//		}
+//
+//		assertNull(a1.getFechaMuerte());
+//		assertEquals("Still Alive!", a1.getFechaMuerteCorta());
+//
+//		GregorianCalendar f2 = new GregorianCalendar();
+//		f2.set(2020, 7, 28);
+//		a1.setFechaMuerte(f2);
+//
+//		assertEquals("28/08/20", a1.getFechaMuerteCorta());
+//
+//	}
 }

@@ -44,9 +44,9 @@ public class GestorArtista {
 	}
 
 	public ArrayList<Artista> getArtistas(String parteNombre) {
-		
+		return misArtistas;
 	}
-	
+
 	public ArrayList<Artista> getArtistasImplementarConLambda(String parteNombre) {
 		Collections.sort(misArtistas, new OrdenPorNombre());
 		return (ArrayList<Artista>) misArtistas.stream().filter(a1->a1.getNombre().contains(parteNombre)).collect(Collectors.toList());
@@ -58,21 +58,26 @@ public class GestorArtista {
 		return (ArrayList<Artista>) misArtistas.stream().filter(a1->a1.getEdad()<=edadLimiteSuperior).collect(Collectors.toList());
 		
 	}
-	
-	public ArrayList<Artista> getArtistas(int edadLimiteSuperior) {
-		
-	}
-	
+
 	public ArrayList<Artista> getArtistas() {
-		
+		Collections.sort(misArtistas, new OrdenPorSexoEdadNombre());
+		return misArtistas;
 	}
-	
-	public String getPromedioEdadArtistas(){
-		
-	}
-	
-	public String getPromedioEdadArtistas(Sexo s){
-		
-	}
+//
+//	public ArrayList<Artista> getArtistas(int edadLimiteSuperior) {
+//
+//	}
+//
+//	public ArrayList<Artista> getArtistas() {
+//
+//	}
+//
+//	public String getPromedioEdadArtistas(){
+//
+//	}
+//
+//	public String getPromedioEdadArtistas(Sexo s){
+//
+//	}
 	
 }

@@ -4,14 +4,19 @@ import java.util.Comparator;
 
 public class OrdenPorSexoEdadNombre implements Comparator<Artista>{
 
-	
 	public int compare(Artista a, Artista b) {
-		
-		if (!a.getSexo().equalsIgnoreCase(b.getNombre())) {
-			return a.getNombre().compareTo(b.getNombre());
+
+		if (a.getSexo().name().compareTo(b.getSexo().name())==0) {
+			if(a.getFechaNacto().compareTo(b.getFechaNacto())==0)
+				return a.getNombre().compareTo(b.getNombre());
+			else
+				if(a.getFechaNacto().compareTo(b.getFechaNacto())<0)
+					return 1;
+				else
+					return -1;
 		}
 		else {
-			return a.getFechaNacto().compareTo(b.getFechaNacto());
+			return -1;
 		}
-	}	
+	}
 }

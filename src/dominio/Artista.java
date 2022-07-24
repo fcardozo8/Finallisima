@@ -16,10 +16,11 @@ public class Artista implements Comparable<Artista>{
 	
 	public Artista(String nombre, GregorianCalendar fechaNacto, Sexo sexo) throws ExceptionArtista {
 		this.nombre=ArtistaUtil.inicialesMayus(nombre);
-//		if ((fechaNacto.get(Calendar.YEAR)+18)<new GregorianCalendar().get(Calendar.YEAR))
 		if (getEdad(fechaNacto)>=18) {
-			System.out.println(getEdad(fechaNacto)+"   "+nombre);
-			this.fechaNacto=fechaNacto;
+//			System.out.println(getEdad(fechaNacto)+"   "+nombre);
+			this.fechaNacto= new GregorianCalendar(fechaNacto.get(Calendar.YEAR),
+													fechaNacto.get(Calendar.MONTH),
+													fechaNacto.get(Calendar.DAY_OF_MONTH));
 		}else {
 			throw new ExceptionArtista("No se permiten artistas menores ("+getEdad(fechaNacto)+")");
 		}
@@ -86,9 +87,9 @@ public class Artista implements Comparable<Artista>{
 	}
 
 	public GregorianCalendar getFechaNacto() {
-		fechaNacto.set(Calendar.YEAR,anio);
-		fechaNacto.set(Calendar.MONTH,mes-1);
-		fechaNacto.set(Calendar.DAY_OF_MONTH,dia);
+//		fechaNacto.set(Calendar.YEAR,anio);
+//		fechaNacto.set(Calendar.MONTH,mes-1);
+//		fechaNacto.set(Calendar.DAY_OF_MONTH,dia);
 		return fechaNacto;
 	}
 
